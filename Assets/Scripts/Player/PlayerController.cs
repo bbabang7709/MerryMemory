@@ -19,7 +19,9 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        MoveDirection = SnapToFourDirections(playerInput.MoveInput);
+        // 대화·퍼즐 중에는 입력을 0으로 처리 → 멈추고 마지막 방향의 Idle 유지
+        Vector2 input = GameplayLock.IsLocked ? Vector2.zero : playerInput.MoveInput;
+        MoveDirection = SnapToFourDirections(input);
     }
 
     private void FixedUpdate()
