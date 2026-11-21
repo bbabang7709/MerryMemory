@@ -25,12 +25,15 @@
 | ESC | 메뉴 |
 
 ## 개발 정보
-- **엔진:** Unity 6 (6000.3.x)
+- **엔진:** Unity 6 (6000.3.6f1)
 - **렌더링:** URP 2D
 - **주요 기술:** 2D Tilemap, Input System, TextMeshPro, ScriptableObject
 
 ## 현재 상태
-기획 단계입니다. Unity 프로젝트는 아직 만들지 않았습니다.
+기획을 마치고 Unity 프로젝트(Universal 2D 템플릿)를 생성한 단계입니다. 게임 기능은 아직 구현하지 않았습니다.
+
+### 프로젝트 열기
+Unity Hub에서 **Add → Add project from disk**로 이 저장소 폴더를 선택하고, Unity **6000.3.6f1** 버전으로 엽니다.
 
 ## 문서
 - [게임 기획서 (GDD)](Docs/GDD.md)
