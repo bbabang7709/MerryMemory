@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25bb168cee2470f4d8cf05caae0f0d02, type: 3}
+  m_Name: Piece_Stamp_Found
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueData
+  lines:
+  - speaker: 
+    text: "\uB208 \uC18D\uC5D0\uC11C \uBC18\uC9DD\uC774\uB294 \uC6B0\uD45C \uC870\uAC01\uC744
+      \uCC3E\uC558\uB2E4!"
+  - speaker: "{\uC774\uB984}"
+    text: "\uCE74\uB4DC \uC870\uAC01 \uD558\uB098 \uCC3E\uC558\uB2E4. \uAD11\uC7A5
+      \uD2B8\uB9AC\uB85C \uAC00 \uBCF4\uC790."

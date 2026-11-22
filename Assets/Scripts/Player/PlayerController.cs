@@ -32,6 +32,13 @@ public class PlayerController : MonoBehaviour
     {
         rb.linearVelocity = MoveDirection * moveSpeed;
     }
+
+    /// <summary>바라보는 방향을 직접 정합니다. (엔딩에서 화면 쪽 보기 등) 4방향으로 맞춥니다.</summary>
+    public void Face(Vector2 direction)
+    {
+        Vector2 snapped = SnapToFourDirections(direction);
+        if (snapped != Vector2.zero) Facing = snapped;
+    }
     private Vector2 SnapToFourDirections(Vector2 input)
     {
         if (input.sqrMagnitude < 0.01f) return Vector2.zero;
