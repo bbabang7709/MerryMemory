@@ -55,11 +55,14 @@ public class DialogueView : MonoBehaviour
     {
         StopTyping();
 
+        // {이름}, {이/가} 같은 표기를 화면에 보여 주기 직전에 바꿉니다. (화자 칸에 {이름}을 써도 됨)
+        string name = GameSession.Profile.Name;
+
         bool hasSpeaker = !string.IsNullOrWhiteSpace(line.speaker);
         speakerBox.SetActive(hasSpeaker);
-        speakerText.text = hasSpeaker ? line.speaker : string.Empty;
+        speakerText.text = hasSpeaker ? TextFormatter.Format(line.speaker, name) : string.Empty;
 
-        bodyText.text = line.text;
+        bodyText.text = TextFormatter.Format(line.text, name);
         bodyText.maxVisibleCharacters = 0;
         bodyText.ForceMeshUpdate(); // characterCount를 바로 얻기 위해
         SetArrow(false);

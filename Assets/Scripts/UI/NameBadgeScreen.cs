@@ -93,7 +93,7 @@ public class NameBadgeScreen : MonoBehaviour
             return;
         }
 
-        confirmText.text = $"{WithEuroParticle(name.Trim())} 할까요?";
+        confirmText.text = TextFormatter.Format("{이름}{으로/로} 할까요?", name.Trim());
         confirmPanel.SetActive(true);
         Select(yesButton);
     }
@@ -144,17 +144,5 @@ public class NameBadgeScreen : MonoBehaviour
     private static void Select(Selectable s)
     {
         if (EventSystem.current != null) EventSystem.current.SetSelectedGameObject(s.gameObject);
-    }
-
-    /// <summary>
-    /// 이름 뒤에 "로/으로"를 붙입니다. 받침이 없거나 ㄹ 받침이면 "로", 그 밖의 받침은 "으로".
-    /// 임시: 2-3에서 TextFormatter를 만들면 TextFormatter로 바꿉니다.
-    /// </summary>
-    private static string WithEuroParticle(string name)
-    {
-        char last = name[name.Length - 1];
-        if (last < '가' || last > '힣') return name + "로"; // 한글이 아니면 받침 없음으로 처리
-        int final = (last - '가') % 28;                      // 0 = 받침 없음, 8 = ㄹ 받침
-        return name + (final == 0 || final == 8 ? "로" : "으로");
     }
 }
