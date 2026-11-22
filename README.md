@@ -38,3 +38,4 @@ Unity Hub에서 **Add → Add project from disk**로 이 저장소 폴더를 선
 ## 문서
 - [게임 기획서 (GDD)](Docs/GDD.md)
 - [개발 로드맵](Docs/ROADMAP.md)
+- [마을 맵 설계](Docs/MAP.md)
