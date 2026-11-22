@@ -11,8 +11,6 @@ public class PlayerAnimator : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private PlayerController controller;
 
-    private Vector2 facing = Vector2.down; // 시작은 정면
-
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -22,10 +20,8 @@ public class PlayerAnimator : MonoBehaviour
 
     private void Update()
     {
-        Vector2 move = controller.MoveDirection;
-        bool isMoving = move != Vector2.zero;
-
-        if (isMoving) facing = move; // 움직일 때만 갱신 → 멈추면 마지막 방향 유지
+        bool isMoving = controller.MoveDirection != Vector2.zero;
+        Vector2 facing = controller.Facing; // 움직일 때만 갱신되는 값 → 멈추면 마지막 방향 유지
 
         animator.SetFloat(DirXHash, facing.x);
         animator.SetFloat(DirYHash, facing.y);
