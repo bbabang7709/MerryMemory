@@ -74,6 +74,9 @@ public class EndingSequence : MonoBehaviour
         yield return new WaitForSeconds(merryHold);
 
         // ⑥ 정리하고 타이틀로 (타이틀에서 GameSession.Clear로 이번 플레이 정보가 지워짐)
+        //    엔딩 클리어를 기록(새 게임을 해도 남음)하고, 다 깬 판의 진행 세이브는 지움 → [이어하기] 꺼짐 (3-5)
+        SaveSystem.MarkEndingCleared();
+        SaveSystem.Delete();
         GameplayLock.Release(this);
         SceneLoader.Load(SceneNames.Title);
     }

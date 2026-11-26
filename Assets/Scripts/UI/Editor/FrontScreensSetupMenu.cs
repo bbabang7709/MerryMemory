@@ -71,7 +71,7 @@ public static class FrontScreensSetupMenu
         Text(canvas, "Subtitle", "크리스마스이브, 작은 눈 마을의 배달", 40, Muted, new Vector2(0, 100), new Vector2(1200, 60));
 
         var start = MakeButton(canvas, "StartButton", "시작하기", new Vector2(0, -110), new Vector2(420, 100), Red);
-        var quit = MakeButton(canvas, "QuitButton", "끝내기", new Vector2(0, -240), new Vector2(420, 100), Navy);
+        var quit = MakeButton(canvas, "QuitButton", "끝내기", new Vector2(0, -350), new Vector2(420, 100), Navy);
         Text(canvas, "Hint", "방향키로 고르고 Enter로 선택", 28, Muted, new Vector2(0, -460), new Vector2(1200, 50));
 
         var screen = canvas.gameObject.AddComponent<TitleScreen>();
@@ -80,7 +80,61 @@ public static class FrontScreensSetupMenu
         so.FindProperty("quitButton").objectReferenceValue = quit;
         so.ApplyModifiedPropertiesWithoutUndo();
 
+        AddSaveUI(canvas, screen);
         EditorSceneManager.SaveScene(scene, path);
+    }
+
+    /// <summary>
+    /// 메뉴 Merry Memory → Add Continue to Title  (로드맵 3-5)
+    /// 이미 있는 Title 씬에 [이어하기] 버튼과 "배달 완료" 표시를 더합니다.
+    /// </summary>
+    [MenuItem("Merry Memory/Add Continue to Title")]
+    private static void AddContinueToTitle()
+    {
+        string path = $"{SceneFolder}/{SceneNames.Title}.unity";
+        if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) return;
+        string previous = SceneManager.GetActiveScene().path;
+
+        font = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(FontPath);
+        var scene = EditorSceneManager.OpenScene(path, OpenSceneMode.Single);
+        var screen = Object.FindFirstObjectByType<TitleScreen>();
+        if (screen == null)
+        {
+            Debug.LogWarning("Title 씬에 TitleScreen이 없습니다.");
+            return;
+        }
+        if (screen.transform.Find("ContinueButton") == null)
+        {
+            var quit = screen.transform.Find("QuitButton") as RectTransform;
+            if (quit != null) quit.anchoredPosition = new Vector2(0, -350); // 이어하기 자리 비우기
+            AddSaveUI((RectTransform)screen.transform, screen);
+            EditorSceneManager.SaveScene(scene);
+            Debug.Log("Title에 [이어하기]와 \"배달 완료\" 표시를 추가했습니다.");
+        }
+        if (!string.IsNullOrEmpty(previous) && previous != path && File.Exists(previous)) EditorSceneManager.OpenScene(previous);
+    }
+
+    /// <summary>[이어하기] 버튼(시작하기 아래)과 로고 옆 "배달 완료" 표시를 만들고 TitleScreen에 연결합니다.</summary>
+    private static void AddSaveUI(RectTransform canvas, TitleScreen screen)
+    {
+        var cont = MakeButton(canvas, "ContinueButton", "이어하기", new Vector2(0, -230), new Vector2(420, 100), Navy);
+        cont.transform.SetSiblingIndex(canvas.Find("StartButton").GetSiblingIndex() + 1);
+
+        // "배달 완료" 도장 (엔딩을 봤을 때만 켜짐)
+        var mark = CreateUI("DeliveredMark", canvas);
+        mark.anchoredPosition = new Vector2(640, 300);
+        mark.sizeDelta = new Vector2(260, 90);
+        mark.localEulerAngles = new Vector3(0, 0, -12f);
+        var border = Box(mark, "Border", Vector2.zero, new Vector2(260, 90), Red);
+        Box(border, "Inner", Vector2.zero, new Vector2(246, 76), Night);
+        Text(mark, "Label", "배달 완료", 44, Red, Vector2.zero, new Vector2(240, 70));
+        foreach (var g in mark.GetComponentsInChildren<Graphic>()) g.raycastTarget = false;
+        mark.gameObject.SetActive(false);
+
+        var so = new SerializedObject(screen);
+        so.FindProperty("continueButton").objectReferenceValue = cont;
+        so.FindProperty("deliveredMark").objectReferenceValue = mark.gameObject;
+        so.ApplyModifiedPropertiesWithoutUndo();
     }
 
     // ───────────────────────── NameBadge ─────────────────────────

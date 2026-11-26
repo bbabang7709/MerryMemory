@@ -109,6 +109,9 @@ public class NameBadgeScreen : MonoBehaviour
         if (finished) return;
         finished = true;
         GameSession.Begin(nameInput.text, gender);
+        // 새 게임 세이브로 덮어쓰기 (3-5). 지금 씬은 NameBadge라서 "Village에서 시작"을 직접 넘김.
+        // 덮어써야 예전 판의 세이브가 [이어하기]로 다시 열리지 않습니다.
+        SaveSystem.Save(SceneNames.Village);
         StartCoroutine(StampAndGo());
     }
 

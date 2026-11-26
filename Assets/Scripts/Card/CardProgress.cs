@@ -11,6 +11,7 @@ using UnityEngine;
 ///   현황 UI·저장·마을 변화는 각자 이 이벤트를 듣습니다. (2-4의 ProfileChanged와 같은 방식)
 ///
 /// 저장소에는 CardPieceData 자체가 아니라 id 문자열만 담습니다.
+/// 저장(3-5): SaveSystem이 AllIds를 파일에 쓰고, 불러올 때 RestoreIds로 되돌립니다.
 /// </summary>
 public static class CardProgress
 {
@@ -48,6 +49,30 @@ public static class CardProgress
 
     /// <summary>5개를 다 모았는지</summary>
     public static bool IsComplete => Count >= TotalPieces;
+
+    // ── 3-5 저장용 ──
+
+    /// <summary>모은 조각 id 전부 (저장할 때 읽기만)</summary>
+    public static IEnumerable<string> AllIds => CollectedIds;
+
+    /// <summary>
+    /// 세이브에서 불러온 id들로 되돌립니다. 이벤트(PieceCollected)는 부르지 않습니다.
+    /// → 3-4 퍼즐 복원과 같은 이유: 부르면 "새로 얻었다"로 착각해 자동 저장·연출이 또 일어남
+    /// </summary>
+    public static void RestoreIds(IEnumerable<string> ids)
+    {
+        CollectedIds.Clear(); // 이전 판의 조각이 섞이지 않게 먼저 비움
+        if (ids != null)
+        {
+            foreach (string id in ids)
+            {
+                if (!string.IsNullOrEmpty(id))
+                {
+                    CollectedIds.Add(id);
+                }
+            }
+        }
+    }
 
     /// <summary>모은 조각을 모두 지웁니다. (새 게임, 타이틀로 돌아갈 때 GameSession.Clear가 부름)</summary>
     public static void Clear()

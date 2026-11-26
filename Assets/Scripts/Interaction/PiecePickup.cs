@@ -6,6 +6,7 @@ using UnityEngine;
 ///
 /// "[F] 줍기" 안내와 대화 재생은 부모(DialogueInteractable)가 하고,
 /// 여기서는 대화가 끝났을 때 조각을 CardProgress에 기록하고 물건을 치웁니다.
+/// 이미 가진 조각이면(이어하기, 씬 다시 열기) 시작할 때 스스로 꺼집니다. (3-4 퍼즐 복원과 같은 개념)
 /// </summary>
 public class PiecePickup : DialogueInteractable
 {
@@ -17,6 +18,12 @@ public class PiecePickup : DialogueInteractable
 
     protected override string DefaultPrompt => "줍기";
     protected override DialogueData GetDialogue() => foundDialogue;
+
+    // 씬이 열릴 때 장부에 물어보고, 이미 가진 조각이면 바닥에 다시 놓이지 않게 끔
+    private void Start()
+    {
+        if (CardProgress.Has(piece)) gameObject.SetActive(false);
+    }
 
     protected override void OnDialogueFinished()
     {

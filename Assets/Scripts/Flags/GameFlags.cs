@@ -7,7 +7,7 @@ using UnityEngine;
 /// 키 이름은 FlagKeys에 모아 둔 상수를 쓰세요. (오타 방지)
 ///
 /// CardProgress와 같은 모양입니다 (HashSet + 정적 + Play마다 초기화).
-/// 3-5에서는 AllKeys를 저장 파일에 씁니다.
+/// 저장(3-5): SaveSystem이 AllKeys를 파일에 쓰고, 불러올 때 RestoreKeys로 되돌립니다.
 /// </summary>
 public static class GameFlags
 {
@@ -39,6 +39,21 @@ public static class GameFlags
 
     /// <summary>켜져 있는 모든 플래그 키 (3-5 저장용). 고치지 말고 읽기만 하세요.</summary>
     public static IEnumerable<string> AllKeys => AcquiredFlags;
+
+    /// <summary>세이브에서 불러온 키들로 되돌립니다. (3-5) 먼저 비우고, 빈 키는 뺍니다.</summary>
+    public static void RestoreKeys(IEnumerable<string> keys)
+    {
+        AcquiredFlags.Clear();
+        if (keys == null) return;
+
+        foreach (string key in keys)
+        {
+            if (!string.IsNullOrEmpty(key))
+            {
+                AcquiredFlags.Add(key);
+            }
+        }
+    }
 
     /// <summary>모든 플래그를 지웁니다. (새 게임, GameSession.Clear가 부름)</summary>
     public static void Clear()
