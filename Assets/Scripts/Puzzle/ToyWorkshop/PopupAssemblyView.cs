@@ -73,12 +73,15 @@ public class PopupAssemblyView : MonoBehaviour
         switch (puzzle.TryInsert(partTags[index]))
         {
             case PopupAssemblyPuzzle.InsertResult.Correct:
+                AudioManager.PlaySfx(Sfx.Click); // (5-2)
                 messageText.text = $"{TextFormatter.AttachParticle(partLabels[index], "을/를")} 끼웠다. 딸깍!";
                 break;
             case PopupAssemblyPuzzle.InsertResult.Wrong:
+                AudioManager.PlaySfx(Sfx.Wrong); // (5-2)
                 messageText.text = "덜컥! 순서가 맞지 않는 것 같다. 처음부터 다시.";
                 break;
             case PopupAssemblyPuzzle.InsertResult.Completed:
+                AudioManager.PlaySfx(Sfx.Stamp); // (5-2)
                 messageText.text = "팝업 트리가 솟아올랐다!";
                 StartCoroutine(FinishAfterDelay());
                 break;

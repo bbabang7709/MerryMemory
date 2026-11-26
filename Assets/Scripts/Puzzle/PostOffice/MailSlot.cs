@@ -33,11 +33,13 @@ public class MailSlot : MonoBehaviour, IInteractable
 
         if (CarriedItem.Current.tag != destinationTag)
         {
+            AudioManager.PlaySfx(Sfx.Wrong); // (5-2)
             DialogueRunner.Instance?.StartDialogue(wrongDialogue);
         }
         else
         {
             var item = CarriedItem.Take();
+            AudioManager.PlaySfx(Sfx.Stamp); // 분류함에 쏙 (5-2)
             puzzle.Deliver(item);
         }
     }

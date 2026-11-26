@@ -27,6 +27,7 @@ public class CarryPickup : MonoBehaviour, IInteractable
         }
 
         gameObject.SetActive(false);
+        AudioManager.PlaySfx(Sfx.Pickup); // (5-2)
 
         // "톱니바퀴를 집어 들었다." — 조사는 TextFormatter가 앞 글자 받침에 맞춤
         var data = ScriptableObject.CreateInstance<DialogueData>();

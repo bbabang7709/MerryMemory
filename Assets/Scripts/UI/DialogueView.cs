@@ -54,6 +54,7 @@ public class DialogueView : MonoBehaviour
     public void ShowLine(DialogueLine line)
     {
         StopTyping();
+        AudioManager.PlaySfx(Sfx.Blip, 0.6f, 0.05f); // 줄마다 "톡" (5-2)
 
         // {이름}, {이/가} 같은 표기를 화면에 보여 주기 직전에 바꿉니다. (화자 칸에 {이름}을 써도 됨)
         string name = GameSession.Profile.Name;

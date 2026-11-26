@@ -33,6 +33,7 @@ public class LetterFragmentPickup : MonoBehaviour, IInteractable
     {
         GameFlags.Set(FlagKey);
         gameObject.SetActive(false);
+        AudioManager.PlaySfx(Sfx.Pickup); // (5-2)
 
         var data = ScriptableObject.CreateInstance<DialogueData>();
         if (!string.IsNullOrEmpty(foundText)) data.lines.Add(new DialogueLine { speaker = "", text = foundText });

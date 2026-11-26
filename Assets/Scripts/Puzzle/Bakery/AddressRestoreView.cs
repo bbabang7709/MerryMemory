@@ -73,6 +73,7 @@ public class AddressRestoreView : MonoBehaviour
     {
         if (puzzle == null || finishing) return;
         puzzle.CycleSlot(slot);
+        AudioManager.PlaySfx(Sfx.Click); // (5-2)
         Refresh();
     }
 
@@ -83,6 +84,7 @@ public class AddressRestoreView : MonoBehaviour
         if (puzzle.HasEmptySlot())
         {
             messageText.text = "아직 빈칸이 있다.";
+            AudioManager.PlaySfx(Sfx.Wrong); // (5-2)
         }
         else if (puzzle.IsCorrect())
         {
@@ -92,6 +94,7 @@ public class AddressRestoreView : MonoBehaviour
         else
         {
             messageText.text = "뭔가 어색하다. 글자 순서를 바꿔 보자.";
+            AudioManager.PlaySfx(Sfx.Wrong); // (5-2)
         }
     }
 

@@ -41,6 +41,7 @@ public class CardPieceReward : MonoBehaviour
     {
         // 보상 연출 동안은 대사와 대사 사이에도 움직이지 못하게 잠급니다.
         GameplayLock.Acquire(this);
+        AudioManager.PlaySfx(Sfx.PieceGet); // 획득음 (5-2)
 
         yield return PlayDialogue(BuildFoundDialogue()); // ① 획득 알림 + 한마디
         yield return PlayDialogue(piece.clueDialogue);   // ② 받는 사람 단서

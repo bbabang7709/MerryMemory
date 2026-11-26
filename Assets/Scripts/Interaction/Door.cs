@@ -52,6 +52,7 @@ public class Door : MonoBehaviour, IInteractable
         travelling = true;
         GameplayLock.Acquire(this);
 
+        AudioManager.PlaySfx(Sfx.Door); // (5-2)
         yield return SceneLoader.FadeScreen(1f);
 
         // 플레이어 옮기기. Rigidbody2D(보간 사용)도 같이 옮겨야 물리 갱신 때 원래 자리로 되돌아가지 않음

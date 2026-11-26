@@ -39,6 +39,7 @@ public class Workbench : MonoBehaviour, IInteractable
 
             var part = CarriedItem.Take();
             puzzle.AddPart(part);
+            AudioManager.PlaySfx(Sfx.Stamp); // 작업대에 탁 (5-2)
             Say(puzzle.HasAllParts
                 ? $"{part.label}{{을/를}} 작업대에 올려 두었다. ({puzzle.PartsOnBench}/{puzzle.PartsNeeded}) 이제 조립할 수 있겠다!"
                 : $"{part.label}{{을/를}} 작업대에 올려 두었다. ({puzzle.PartsOnBench}/{puzzle.PartsNeeded})");

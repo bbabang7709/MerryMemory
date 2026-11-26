@@ -24,6 +24,7 @@ public class MailLetter : MonoBehaviour, IInteractable
         }
 
         gameObject.SetActive(false);
+        AudioManager.PlaySfx(Sfx.Pickup); // (5-2)
 
         // "편지를 집어 들었다. 받는 곳: 시계탑 길" (즉석 대사)
         var data = ScriptableObject.CreateInstance<DialogueData>();
