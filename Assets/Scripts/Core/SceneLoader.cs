@@ -30,6 +30,17 @@ public class SceneLoader : MonoBehaviour
         loader.StartCoroutine(loader.LoadRoutine(sceneName, fadeDuration));
     }
 
+    /// <summary>
+    /// 씬은 그대로 두고 화면만 어둡게(1)/밝게(0) 합니다. 문 이동 같은 같은 씬 안의 순간 이동에 씁니다. (4-0)
+    /// 코루틴 안에서 yield return SceneLoader.FadeScreen(1f); 처럼 기다리며 씁니다.
+    /// </summary>
+    public static IEnumerator FadeScreen(float target, float duration = DefaultFadeDuration)
+    {
+        var loader = GetOrCreate();
+        loader.fade.blocksRaycasts = target > 0f;
+        yield return loader.FadeTo(target, duration);
+    }
+
     private IEnumerator LoadRoutine(string sceneName, float duration)
     {
         loading = true;
