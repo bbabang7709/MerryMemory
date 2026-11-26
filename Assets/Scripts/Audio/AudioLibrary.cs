@@ -4,7 +4,7 @@ using UnityEngine;
 public enum Bgm { None, Title, Village, Ending }
 
 /// <summary>효과음 종류</summary>
-public enum Sfx { Footstep, Pickup, PieceGet, Door, Blip, Click, Stamp, Wrong }
+public enum Sfx { Footstep, Pickup, PieceGet, Door, Blip, Click, Stamp, Wrong, MidnightBell }
 
 /// <summary>
 /// 게임에서 쓰는 소리 목록과 기본 볼륨 (로드맵 5-2). Assets/Resources/AudioLibrary.asset 하나만 둡니다.
@@ -32,6 +32,8 @@ public class AudioLibrary : ScriptableObject
     public AudioClip click;
     public AudioClip stamp;
     public AudioClip wrong;
+    [Tooltip("엔딩: 자정을 알리는 큰 종")]
+    public AudioClip midnightBell;
 
     [Header("볼륨")]
     [Range(0f, 1f)] public float bgmVolume = 0.45f;
@@ -60,6 +62,7 @@ public class AudioLibrary : ScriptableObject
         Sfx.Click => click != null ? click : ToneSynth.Click(),
         Sfx.Stamp => stamp != null ? stamp : ToneSynth.Stamp(),
         Sfx.Wrong => wrong != null ? wrong : ToneSynth.Clunk(),
+        Sfx.MidnightBell => midnightBell != null ? midnightBell : ToneSynth.MidnightBell(),
         _ => null,
     };
 }

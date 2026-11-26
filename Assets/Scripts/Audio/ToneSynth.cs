@@ -142,6 +142,19 @@ public static class ToneSynth
             Mathf.Exp(-t * 22f) * 0.6f * Sin(92f, t) + Mathf.Exp(-t * 90f) * 0.3f * Noise(rng));
     }
 
+    /// <summary>엔딩 자정의 큰 종 "데엥~" (5-4). 낮고 길게 울리고 살짝 맥놀이(웅웅거림)가 있음</summary>
+    public static AudioClip MidnightBell()
+    {
+        const float f = 196f; // 솔(G3): 마을 종(도·레·미·솔)과 어울리는 낮은 음
+        return Get("midnight_bell", 4.5f, t =>
+            Mathf.Exp(-t * 0.9f) * Mathf.Min(1f, t * 300f) * 0.5f * (
+                Sin(f, t) + 0.9f * Sin(f * 1.004f, t) +                 // 거의 같은 두 음 → 맥놀이
+                0.45f * Sin(f * 2.0f, t) * Mathf.Exp(-t * 1.5f) +
+                0.3f * Sin(f * 2.4f, t) * Mathf.Exp(-t * 2.5f) +       // 종 특유의 어긋난 배음
+                0.2f * Sin(f * 3.0f, t) * Mathf.Exp(-t * 3.5f) +
+                0.12f * Sin(f * 4.2f, t) * Mathf.Exp(-t * 6f)));
+    }
+
     // ───────────────────────── 5-2 반복 소리 ─────────────────────────
 
     /// <summary>바람 소리 (약 10초 반복, 끝과 처음이 자연스럽게 이어짐)</summary>
