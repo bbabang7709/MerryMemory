@@ -3,14 +3,14 @@ using UnityEngine;
 /// <summary>
 /// 광장 크리스마스트리. 조사하면 (로드맵 2-5, 3-2)
 ///   - 필요한 조각(requiredPieces)을 모두 모았으면 → 엔딩 시작
-///   - 없으면 → "조각이 아직 모자라." 대사
+///   - 없으면 → notYetDialogue + "카드 조각이 아직 n개 모자라." (4-6: 남은 수를 알려 줌)
 ///
 /// 경우에 따라 대화 대신 엔딩을 틀어야 해서 DialogueInteractable이 아니라
 /// IInteractable을 직접 구현합니다.
 /// </summary>
 public class EndingTrigger : MonoBehaviour, IInteractable
 {
-    // 지금 마을에는 우표 조각만 있어서 1개(Piece_1_Stamp)만 넣어 둠. 4단계에서 조각이 다 생기면 5개로.
+    // 4-6부터 조각 5개 전부 (Setup Stage 4 Finish 메뉴가 넣음)
     [Tooltip("엔딩에 필요한 조각들. 모두 모아야 엔딩이 열립니다.")]
     [SerializeField] private CardPieceData[] requiredPieces;
 
@@ -38,8 +38,23 @@ public class EndingTrigger : MonoBehaviour, IInteractable
         }
         else
         {
-            DialogueRunner.Instance?.StartDialogue(notYetDialogue);
+            DialogueRunner.Instance?.StartDialogue(BuildNotYetDialogue());
         }
+    }
+
+    /// <summary>notYetDialogue 뒤에 남은 조각 수 한 줄을 붙인 대사</summary>
+    private DialogueData BuildNotYetDialogue()
+    {
+        var data = ScriptableObject.CreateInstance<DialogueData>();
+        if (notYetDialogue != null) data.lines.AddRange(notYetDialogue.lines);
+
+        int missing = 0;
+        if (requiredPieces != null)
+            foreach (var piece in requiredPieces)
+                if (piece != null && !CardProgress.Has(piece)) missing++;
+
+        data.lines.Add(new DialogueLine { speaker = "", text = $"카드 조각이 아직 {missing}개 모자라." });
+        return data;
     }
 
     /// <summary>requiredPieces를 모두 모았는지.</summary>

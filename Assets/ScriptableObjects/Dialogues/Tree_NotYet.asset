@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
   - speaker: "{\uC774\uB984}"
-    text: "\uC870\uAC01\uC774 \uC544\uC9C1 \uBAA8\uC790\uB77C."
+    text: "\uCE74\uB4DC\uB97C \uC644\uC131\uD558\uBA74 \uC774 \uD2B8\uB9AC \uC55E\uC73C\uB85C
+      \uC624\uB77C\uACE0 \uD588\uC9C0."

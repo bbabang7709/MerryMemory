@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25bb168cee2470f4d8cf05caae0f0d02, type: 3}
+  m_Name: Baker_Solved
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueData
+  lines:
+  - speaker: "\uBE75\uC9D1 \uC0AC\uC7A5"
+    text: "\uC8FC\uC18C\uAC00 \uC870\uAE08\uC740 \uC77D\uD788\uC9C0? '\uB108\uBA38\uC758'
+      \uB204\uAD6C\uB77C\uB2C8, \uB098\uB3C4 \uAD81\uAE08\uD558\uB124."
+  - speaker: "\uBE75\uC9D1 \uC0AC\uC7A5"
+    text: "\uCE74\uB4DC\uAC00 \uB2E4 \uBAA8\uC774\uBA74 \uBC1B\uB294 \uC0AC\uB78C\uB3C4
+      \uC54C\uAC8C \uB420 \uAC70\uC57C."
