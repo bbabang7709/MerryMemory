@@ -31,4 +31,13 @@ public static class FlagKeys
 
     /// <summary>눈 언덕 얼음 미끄럼 퍼즐 id (4-4)</summary>
     public const string IceSlide = "ice_slide";
+
+    /// <summary>빵집 번진 주소 복원 퍼즐 id (4-5)</summary>
+    public const string AddressRestore = "address_restore";
+
+    /// <summary>빵집 사장과 첫 대화를 했다 (4-5)</summary>
+    public const string BakerTalked = "baker_talked";
+
+    /// <summary>글자 스티커(조각)를 주웠다. 예: LetterFragment("f1") → "letter_fragment:f1" (4-5)</summary>
+    public static string LetterFragment(string fragmentId) => "letter_fragment:" + fragmentId;
 }
