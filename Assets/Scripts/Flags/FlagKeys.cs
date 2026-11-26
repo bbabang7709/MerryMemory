@@ -1,0 +1,16 @@
+/// <summary>
+/// 진행 플래그 이름 모음. (로드맵 3-4)
+/// 플래그 이름을 코드 여기저기에 "postmaster_talked"처럼 직접 쓰면 오타가 나도 모릅니다.
+/// 여기 상수로 모아 두고 FlagKeys.PostMasterTalked 처럼 씁니다.
+/// (Inspector에 문자열로 적는 칸에는 아래 값을 그대로 복사해 넣으세요)
+/// </summary>
+public static class FlagKeys
+{
+    // ── 대화 ──
+    /// <summary>우체국장과 첫 대화(프롤로그)를 했다</summary>
+    public const string PostMasterTalked = "postmaster_talked";
+
+    // ── 퍼즐 ──
+    /// <summary>퍼즐을 풀었다. 예: PuzzleSolved("switch_test") → "puzzle_solved:switch_test"</summary>
+    public static string PuzzleSolved(string puzzleId) => "puzzle_solved:" + puzzleId;
+}

@@ -33,12 +33,13 @@ public static class GameSession
         ProfileChanged?.Invoke(profile);
     }
 
-    /// <summary>이번 플레이 정보(프로필, 조각)를 모두 지웁니다. 타이틀로 돌아올 때 호출됩니다.</summary>
+    /// <summary>이번 플레이 정보(프로필, 조각, 플래그)를 모두 지웁니다. 타이틀로 돌아올 때 호출됩니다.</summary>
     public static void Clear()
     {
         profile = null;
         HasStarted = false;
         CardProgress.Clear(); // 조각은 CardProgress가 맡음 (3-2)
+        GameFlags.Clear();    // 진행 플래그도 (3-4). 안 비우면 새 게임이 퍼즐이 풀린 채로 시작
         ProfileChanged?.Invoke(Profile);
     }
 

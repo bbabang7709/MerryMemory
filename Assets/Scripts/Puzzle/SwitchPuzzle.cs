@@ -4,6 +4,7 @@ using UnityEngine;
 /// 임시 퍼즐: 스위치가 전부 켜지면 풀립니다. (로드맵 3-3, 4단계에서 진짜 퍼즐로 교체)
 /// PuzzleBase를 상속해서 "규칙"만 씁니다. 조각·대사는 전혀 모릅니다.
 ///   스위치가 바뀔 때마다(Toggled) → 전부 켜졌으면 MarkSolved + 스위치 잠금
+///   예전에 푼 퍼즐이면(3-4 플래그) 씬이 열릴 때 켜진 채로 잠겨 있음
 /// </summary>
 public class SwitchPuzzle : PuzzleBase
 {
@@ -33,6 +34,21 @@ public class SwitchPuzzle : PuzzleBase
         {
             MarkSolved();
             LockAllSwitches(); // 푼 뒤에는 다시 끌 수 없게
+        }
+    }
+
+    /// <summary>
+    /// 예전에 푼 퍼즐로 복원될 때 (PuzzleBase.Start가 부름): 모든 스위치를 켜진 모양으로 잠급니다.
+    /// Interact 대신 SetState를 쓰는 이유: Interact는 Toggled 이벤트를 다시 부르기 때문.
+    /// </summary>
+    protected override void OnRestoredSolved()
+    {
+        foreach (var s in switches)
+        {
+            if (s == null) continue;
+            
+            s.SetState(true);
+            s.Locked = true;
         }
     }
 
