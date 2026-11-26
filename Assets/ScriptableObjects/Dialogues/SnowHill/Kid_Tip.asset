@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25bb168cee2470f4d8cf05caae0f0d02, type: 3}
+  m_Name: Kid_Tip
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueData
+  lines:
+  - speaker: "\uB208 \uC5B8\uB355 \uC544\uC774"
+    text: "\uC5BC\uC74C \uC704\uC5D0\uC120 \uD55C \uBC88 \uBC00\uBA74 \uBB54\uAC00\uC5D0
+      \uBD80\uB52A\uCE60 \uB54C\uAE4C\uC9C0 \uC548 \uBA48\uCDB0!"
+  - speaker: "\uB208 \uC5B8\uB355 \uC544\uC774"
+    text: "\uBC14\uC704\uB97C \uBA48\uCDA4\uD310\uC73C\uB85C \uC4F0\uB294 \uAC70\uC57C.
+      \uBC14\uC704 \uBC14\uB85C \uC55E\uC5D0\uC11C \uB531 \uC11C\uAC70\uB4E0."

@@ -28,4 +28,7 @@ public static class FlagKeys
 
     /// <summary>종지기와 첫 대화를 했다 (4-3)</summary>
     public const string BellRingerTalked = "bell_ringer_talked";
+
+    /// <summary>눈 언덕 얼음 미끄럼 퍼즐 id (4-4)</summary>
+    public const string IceSlide = "ice_slide";
 }
