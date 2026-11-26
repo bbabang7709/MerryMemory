@@ -13,4 +13,7 @@ public static class FlagKeys
     // ── 퍼즐 ──
     /// <summary>퍼즐을 풀었다. 예: PuzzleSolved("switch_test") → "puzzle_solved:switch_test"</summary>
     public static string PuzzleSolved(string puzzleId) => "puzzle_solved:" + puzzleId;
+
+    /// <summary>우체국 편지 분류 퍼즐 id (4-1). 풀면 우체국 출구가 열림 → PuzzleSolved(MailSort)</summary>
+    public const string MailSort = "mail_sort";
 }

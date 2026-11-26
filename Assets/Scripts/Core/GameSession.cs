@@ -40,6 +40,7 @@ public static class GameSession
         HasStarted = false;
         CardProgress.Clear(); // 조각은 CardProgress가 맡음 (3-2)
         GameFlags.Clear();    // 진행 플래그도 (3-4). 안 비우면 새 게임이 퍼즐이 풀린 채로 시작
+        CarriedItem.Clear();  // 손에 든 물건도 (4-1)
         ProfileChanged?.Invoke(Profile);
     }
 
