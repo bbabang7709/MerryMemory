@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d653766284f97bf44a71c509144c6c4d, type: 3}
+  m_Name: Piece_5_Envelope
+  m_EditorClassIdentifier: Assembly-CSharp::CardPieceData
+  id: envelope
+  number: 5
+  displayName: "\uBD09\uD22C"
+  icon: {fileID: 0}
+  makerName: "\uBE75\uC9D1 \uC0AC\uC7A5"
+  message: "(\uBE75\uC9D1 \uC0AC\uC7A5\uC758 \uD55C\uB9C8\uB514: 5\uB2E8\uACC4\uC5D0\uC11C
+    \uC791\uC131)"
+  clueDialogue: {fileID: 11400000, guid: bdff6137f3880ba4998dcb438cb2d875, type: 2}

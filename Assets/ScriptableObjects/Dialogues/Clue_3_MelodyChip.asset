@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25bb168cee2470f4d8cf05caae0f0d02, type: 3}
+  m_Name: Clue_3_MelodyChip
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueData
+  lines:
+  - speaker: "\uC885\uC9C0\uAE30"
+    text: "\uC6B0\uB9AC\uB97C \uACC4\uC18D \uC9C0\uCF1C\uBD10 \uC8FC\uB358 \uC0AC\uB78C\uC774\uC9C0."
+  - speaker: "{\uC774\uB984}"
+    text: "\uACC4\uC18D \uC9C0\uCF1C\uBD24\uB2E4\uACE0? \uC2DC\uACC4\uD0D1\uC5D0
+      \uC0AC\uB294 \uBD80\uC5C9\uC774\uC778\uAC00..."
