@@ -13,7 +13,8 @@ using UnityEngine.UI;
 ///   ④ 깨달음 : 잠시 멈췄다가 화면 정면을 봄 → 클로즈업 + "날 여기까지 데려와 준 거, 너였구나."
 ///   ⑤ 자정   : 종이 세 번 울리고 카드가 펼쳐짐 → 캐럴(엔딩 편곡) + 마을 사람들의 한마디가 하나씩
 ///   ⑥ 배달   : "배달 왔습니다! …그럼, 다 같이…" → 화면 가득 MERRY CHRISTMAS!!
-///   ⑦ 마무리 : 엔딩 클리어 기록, 진행 세이브 삭제 → 타이틀 ("배달 완료" 도장)
+///   ⑦ 크레딧 : 카드의 "From." 칸처럼 보낸 사람들 (EndingCredits, 5-5)
+///   ⑧ 마무리 : 엔딩 클리어 기록, 진행 세이브 삭제 → 타이틀 ("배달 완료" 도장)
 /// 대사를 기다리고 키 입력을 기다리는 구간이 많아서 Timeline 대신 코루틴으로 둡니다.
 /// 화면 요소(Dim, Card, Closeup, Merry)는 UICanvas/EndingView 아래에 투명하게 숨어 있습니다.
 /// </summary>
@@ -46,6 +47,8 @@ public class EndingSequence : MonoBehaviour
     [SerializeField] private Sprite maleCloseup;
     [Tooltip("화면 가득 MERRY CHRISTMAS!!")]
     [SerializeField] private CanvasGroup merry;
+    [Tooltip("From. 칸 형식의 크레딧 (5-5)")]
+    [SerializeField] private EndingCredits credits;
 
     [Header("대사")]
     [SerializeField] private DialogueData gatherDialogue;
@@ -79,8 +82,9 @@ public class EndingSequence : MonoBehaviour
         yield return Realize();
         yield return Midnight();
         yield return Deliver();
+        if (credits != null) yield return credits.Play(pieces);
 
-        // ⑦ 엔딩 클리어를 기록(새 게임을 해도 남음)하고, 다 깬 판의 진행 세이브는 지움 → [이어하기] 꺼짐 (3-5)
+        // ⑧ 엔딩 클리어를 기록(새 게임을 해도 남음)하고, 다 깬 판의 진행 세이브는 지움 → [이어하기] 꺼짐 (3-5)
         SaveSystem.MarkEndingCleared();
         SaveSystem.Delete();
         GameplayLock.Release(this);

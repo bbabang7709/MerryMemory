@@ -13,6 +13,7 @@ using UnityEngine.UI;
 ///  - Gameplay/Ending/EndingCrowd: 트리 앞에 모인 마을 사람 8명 (평소엔 꺼 둠, 각 사람의 모습을 그대로 본뜸)
 ///  - Gameplay/Ending/GatherPoint: 주인공이 설 자리
 ///  - EndingSequence 연결: 조각 1~5, 숨길 것(조각 현황·들고 있는 것 UI, 테스트 NPC)
+/// 메뉴 Merry Memory → Setup Credits (5-5): From. 칸 형식의 크레딧 화면 (아래 SetupCredits)
 /// </summary>
 public static class EndingSetupMenu5
 {
@@ -129,6 +130,61 @@ public static class EndingSetupMenu5
         Undo.CollapseUndoOperations(group);
         EditorSceneManager.MarkSceneDirty(ending.gameObject.scene);
         Debug.Log($"엔딩(5-4)을 배치했습니다. 모인 사람 {people}명, 조각 {pieces.Length}개, 숨길 것 {hide.Length}개. 씬을 저장하세요 (Ctrl+S).");
+    }
+
+    /// <summary>
+    /// 메뉴 Merry Memory → Setup Credits (5-5): UICanvas/EndingView/Credits 를 만들고 EndingSequence에 연결.
+    /// 검은 화면에 "From." + 이름 8줄 + 마지막 인사. 제작자 이름은 Credits의 Creator Name 칸에서 바꿉니다.
+    /// </summary>
+    [MenuItem("Merry Memory/Setup Credits (5-5)")]
+    private static void SetupCredits()
+    {
+        var ending = Object.FindFirstObjectByType<EndingSequence>(FindObjectsInactive.Include);
+        var view = GameObject.Find("UICanvas")?.transform.Find("EndingView");
+        if (ending == null || view == null)
+        {
+            EditorUtility.DisplayDialog("Setup Credits", "Village 씬에서 실행하세요.", "확인");
+            return;
+        }
+        var font = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(FontPath);
+
+        Undo.SetCurrentGroupName("Setup Credits 5-5");
+        int group = Undo.GetCurrentGroup();
+        var old = view.Find("Credits");
+        if (old != null) Undo.DestroyObjectImmediate(old.gameObject);
+
+        var root = UI("Credits", view);
+        Stretch(root);
+        root.SetAsLastSibling(); // MERRY CHRISTMAS보다도 위
+        root.gameObject.AddComponent<Image>().color = new Color(0.04f, 0.05f, 0.1f, 1f);
+        var cg = root.gameObject.AddComponent<CanvasGroup>();
+        cg.alpha = 0f;
+        cg.blocksRaycasts = false;
+
+        var cream = new Color(0.96f, 0.95f, 0.9f);
+        var header = Text(root, "From", "From.", 64, new Color(1f, 0.84f, 0.45f), new Vector2(0, 340), new Vector2(1200, 90), font);
+        var lines = new TMP_Text[8];
+        for (int i = 0; i < lines.Length; i++)
+            lines[i] = Text(root, $"Line_{i + 1}", "", 38, cream, new Vector2(0, 230 - i * 62), new Vector2(1400, 56), font);
+        var farewell = Text(root, "Farewell", "", 36, new Color(1f, 0.84f, 0.45f), new Vector2(0, -350), new Vector2(1400, 56), font);
+        foreach (var g in root.GetComponentsInChildren<Graphic>(true)) g.raycastTarget = false;
+
+        var credits = root.gameObject.AddComponent<EndingCredits>();
+        var so = new SerializedObject(credits);
+        so.FindProperty("group").objectReferenceValue = cg;
+        so.FindProperty("header").objectReferenceValue = header;
+        Fill(so.FindProperty("lines"), lines);
+        so.FindProperty("farewell").objectReferenceValue = farewell;
+        so.ApplyModifiedPropertiesWithoutUndo();
+        Undo.RegisterCreatedObjectUndo(root.gameObject, "Create Credits");
+
+        var eso = new SerializedObject(ending);
+        eso.FindProperty("credits").objectReferenceValue = credits;
+        eso.ApplyModifiedProperties();
+
+        Undo.CollapseUndoOperations(group);
+        EditorSceneManager.MarkSceneDirty(ending.gameObject.scene);
+        Debug.Log("크레딧(5-5)을 만들었습니다. 씬을 저장하세요 (Ctrl+S).");
     }
 
     private static void Fill(SerializedProperty arr, Object[] items)
