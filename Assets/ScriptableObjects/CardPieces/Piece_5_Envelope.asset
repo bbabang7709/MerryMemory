@@ -17,6 +17,7 @@ MonoBehaviour:
   displayName: "\uBD09\uD22C"
   icon: {fileID: 0}
   makerName: "\uBE75\uC9D1 \uC0AC\uC7A5"
-  message: "(\uBE75\uC9D1 \uC0AC\uC7A5\uC758 \uD55C\uB9C8\uB514: 5\uB2E8\uACC4\uC5D0\uC11C
-    \uC791\uC131)"
+  message: "\uC5EC\uAE30\uAE4C\uC9C0 \uD55C \uAC78\uC74C \uD55C \uAC78\uC74C \uAC19\uC774
+    \uAC78\uC5B4 \uC918\uC11C \uACE0\uB9C8\uC6CC\uC694. \uB530\uB73B\uD55C \uD06C\uB9AC\uC2A4\uB9C8\uC2A4
+    \uBCF4\uB0B4\uC694."
   clueDialogue: {fileID: 11400000, guid: bdff6137f3880ba4998dcb438cb2d875, type: 2}
