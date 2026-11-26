@@ -16,4 +16,10 @@ public static class FlagKeys
 
     /// <summary>우체국 편지 분류 퍼즐 id (4-1). 풀면 우체국 출구가 열림 → PuzzleSolved(MailSort)</summary>
     public const string MailSort = "mail_sort";
+
+    /// <summary>장난감 공방 팝업 장치 재조립 퍼즐 id (4-2)</summary>
+    public const string PopupAssembly = "popup_assembly";
+
+    /// <summary>공방 주인과 첫 대화를 했다 (4-2)</summary>
+    public const string WorkshopOwnerTalked = "workshop_owner_talked";
 }

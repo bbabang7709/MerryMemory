@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25bb168cee2470f4d8cf05caae0f0d02, type: 3}
+  m_Name: Owner_First
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueData
+  lines:
+  - speaker: "\uACF5\uBC29 \uC8FC\uC778"
+    text: "\uC624, \uC6B0\uCCB4\uAD6D \uC77C\uC744 \uB3D5\uB294 \uCE5C\uAD6C\uB85C\uAD6C\uB098!
+      \uB9C8\uCE68 \uC798 \uC654\uC5B4."
+  - speaker: "\uACF5\uBC29 \uC8FC\uC778"
+    text: "\uCE74\uB4DC\uC5D0 \uB123\uC744 \uD31D\uC5C5 \uD2B8\uB9AC \uC7A5\uCE58\uAC00
+      \uC544\uAE4C \uBC14\uB78C\uC5D0 \uB0A0\uB824 \uC640\uC11C \uB9DD\uAC00\uC838
+      \uBC84\uB838\uC9C0 \uBB50\uC57C."
+  - speaker: "\uACF5\uBC29 \uC8FC\uC778"
+    text: "\uBD80\uD488 \uC138 \uAC1C\uAC00 \uACF5\uBC29 \uC5EC\uAE30\uC800\uAE30\uB85C
+      \uAD74\uB7EC\uAC14\uC5B4. \uD1B1\uB2C8\uBC14\uD034, \uD0DC\uC5FD \uC2A4\uD504\uB9C1,
+      \uC885\uC774 \uD2B8\uB9AC \uD310."
+  - speaker: "\uACF5\uBC29 \uC8FC\uC778"
+    text: "\uCC3E\uC544\uC11C \uC791\uC5C5\uB300\uC5D0 \uC62C\uB824 \uC8FC\uBA74
+      \uAC19\uC774 \uC870\uB9BD\uD574 \uBCF4\uC790."
+  - speaker: "\uACF5\uBC29 \uC8FC\uC778"
+    text: "\uC870\uB9BD \uC21C\uC11C? \uD1B1\uB2C8\uAC00 \uB3CC\uC544\uC57C \uD0DC\uC5FD\uC774
+      \uAC10\uAE30\uACE0, \uD0DC\uC5FD\uC774 \uD480\uB824\uC57C \uD2B8\uB9AC\uAC00
+      \uC19F\uC544\uC624\uB974\uC9C0."
