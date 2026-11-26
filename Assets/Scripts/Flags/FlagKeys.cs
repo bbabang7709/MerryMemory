@@ -22,4 +22,10 @@ public static class FlagKeys
 
     /// <summary>공방 주인과 첫 대화를 했다 (4-2)</summary>
     public const string WorkshopOwnerTalked = "workshop_owner_talked";
+
+    /// <summary>시계탑 종 순서 퍼즐 id (4-3)</summary>
+    public const string BellSequence = "bell_sequence";
+
+    /// <summary>종지기와 첫 대화를 했다 (4-3)</summary>
+    public const string BellRingerTalked = "bell_ringer_talked";
 }
