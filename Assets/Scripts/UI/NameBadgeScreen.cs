@@ -92,10 +92,30 @@ public class NameBadgeScreen : MonoBehaviour
             Select(nameInput);
             return;
         }
+        // 폰트에 없는 글자(이모지, 드문 기호 등)는 대사창에서 네모로 나오므로 막습니다. (6단계)
+        if (!FontHasAll(name.Trim()))
+        {
+            ShowError("화면에 나오지 않는 글자(이모지 등)는 쓸 수 없어요.");
+            Select(nameInput);
+            return;
+        }
 
         confirmText.text = TextFormatter.Format("{이름}{으로/로} 할까요?", name.Trim());
         confirmPanel.SetActive(true);
         Select(yesButton);
+    }
+
+    /// <summary>이름 칸 폰트(대사창과 같은 폰트)에 모든 글자가 있는지. 공백은 괜찮음</summary>
+    private bool FontHasAll(string text)
+    {
+        var font = nameInput.textComponent != null ? nameInput.textComponent.font : null;
+        if (font == null) return true;
+        foreach (char c in text)
+        {
+            if (char.IsWhiteSpace(c)) continue;
+            if (!font.HasCharacter(c, true, false)) return false;
+        }
+        return true;
     }
 
     private void CloseConfirm()

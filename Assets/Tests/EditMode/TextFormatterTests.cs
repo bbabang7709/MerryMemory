@@ -66,11 +66,51 @@ public class TextFormatterTests
         Assert.AreEqual(expected, TextFormatter.Format("{이름}{이}는 어디 갔어?", name));
     }
 
-    // ── 한글이 아닌 이름은 받침 없음으로 ──
+    // ── 한글이 아닌 이름: 받침이 없는 소리로 끝나는 경우 ──
 
     [TestCase("Alex", "{이름}{이/가}", "Alex가")]
     [TestCase("R2", "{이름}{을/를}", "R2를")]
+    [TestCase("Kate", "{이름}{은/는}", "Kate는")]
+    [TestCase("Lily", "{이름}{아/야}", "Lily야")]
+    [TestCase("No.9", "{이름}{이/가}", "No.9가")]
     public void NonHangulTreatedAsNoFinalConsonant(string name, string text, string expected)
+    {
+        Assert.AreEqual(expected, TextFormatter.Format(text, name));
+    }
+
+    // ── 숫자는 읽는 소리로 (6단계) ──
+
+    [TestCase("7", "{이름}{이/가}", "7이")]     // 칠
+    [TestCase("3", "{이름}{을/를}", "3을")]     // 삼
+    [TestCase("0", "{이름}{은/는}", "0은")]     // 영
+    [TestCase("1", "{이름}{으로/로}", "1로")]   // 일: ㄹ 받침 뒤 "로"
+    [TestCase("8", "{이름}{으로/로}", "8로")]   // 팔
+    [TestCase("6", "{이름}{으로/로}", "6으로")] // 육
+    [TestCase("5", "{이름}{이/가}", "5가")]     // 오
+    public void DigitsUseTheirKoreanReading(string name, string text, string expected)
+    {
+        Assert.AreEqual(expected, TextFormatter.Format(text, name));
+    }
+
+    // ── 영문은 끝 글자로 어림 (6단계) ──
+
+    [TestCase("Tom", "{이름}{이/가}", "Tom이")]
+    [TestCase("Ian", "{이름}{아/야}", "Ian아")]
+    [TestCase("Kang", "{이름}{은/는}", "Kang은")]
+    [TestCase("Paul", "{이름}{으로/로}", "Paul로")]
+    [TestCase("PAUL", "{이름}{이/가}", "PAUL이")]
+    [TestCase("Tom", "{이름}{이}는", "Tom이는")]
+    public void LatinNamesUseLastLetterSound(string name, string text, string expected)
+    {
+        Assert.AreEqual(expected, TextFormatter.Format(text, name));
+    }
+
+    // ── 받침 ㄹ 이름 (로드맵 6단계 이름 예외) ──
+
+    [TestCase("별", "{이름}{으로/로}", "별로")]
+    [TestCase("별", "{이름}{이/가}", "별이")]
+    [TestCase("별", "{이름}{아/야}", "별아")]
+    public void RieulFinalName(string name, string text, string expected)
     {
         Assert.AreEqual(expected, TextFormatter.Format(text, name));
     }

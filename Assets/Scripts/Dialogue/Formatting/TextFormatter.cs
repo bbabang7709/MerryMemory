@@ -13,7 +13,10 @@ using System.Text.RegularExpressions;
 /// 예) Format("{이름}{이/가} 왔어요.", "지민") → "지민이 왔어요."
 ///     Format("{이름}{이/가} 왔어요.", "하나") → "하나가 왔어요."
 ///
-/// 한글이 아닌 글자(영문, 숫자 등) 뒤는 받침이 없는 것으로 처리합니다.
+/// 한글이 아닌 글자 뒤 (6단계):
+///   숫자 → 읽는 소리로: 0(영) 3(삼) 6(육)은 받침 있음, 1(일) 7(칠) 8(팔)은 ㄹ 받침, 나머지는 없음  ("7이", "1로", "2를")
+///   영문 → 끝 글자로 어림: l은 ㄹ 받침(Paul로), m·n·ng는 받침 있음(Tom이, Kang이), 나머지는 없음(Alex가)
+///   그 밖의 기호 등은 받침 없음
 /// 게임 코드와 따로 컴파일되는 작은 어셈블리라서 EditMode 테스트에서 바로 검사할 수 있습니다.
 /// </summary>
 public static class TextFormatter
@@ -55,8 +58,8 @@ public static class TextFormatter
     {
         if (token == "이름") return name;
 
-        char prev = before.Length > 0 ? before[before.Length - 1] : '\0';
-        if (token == "이") return HasFinalConsonant(prev) ? "이" : "";
+        var final = FinalOf(before);
+        if (token == "이") return final != Final.None ? "이" : "";
 
         int slash = token.IndexOf('/');
         string a = token.Substring(0, slash);
@@ -70,11 +73,37 @@ public static class TextFormatter
             withoutConsonant = a;
         }
 
-        bool consonant = HasFinalConsonant(prev);
-        // (으)로는 ㄹ 받침 뒤에서도 "로": 철로, 별로
-        if (withConsonant == "으로" && HasRieulFinal(prev)) consonant = false;
+        bool consonant = final != Final.None;
+        // (으)로는 ㄹ 받침 뒤에서도 "로": 철로, 별로, 1로, Paul로
+        if (withConsonant == "으로" && final == Final.Rieul) consonant = false;
 
         return consonant ? withConsonant : withoutConsonant;
+    }
+
+    private enum Final { None, Consonant, Rieul }
+
+    /// <summary>지금까지 만든 글(before)의 마지막 글자 소리가 받침으로 끝나는지 (한글·숫자·영문)</summary>
+    private static Final FinalOf(StringBuilder before)
+    {
+        if (before.Length == 0) return Final.None;
+        char c = before[before.Length - 1];
+
+        if (c >= '가' && c <= '힣')
+            return HasRieulFinal(c) ? Final.Rieul : HasFinalConsonant(c) ? Final.Consonant : Final.None;
+
+        switch (c)
+        {
+            case '0': case '3': case '6': return Final.Consonant; // 영, 삼, 육
+            case '1': case '7': case '8': return Final.Rieul;     // 일, 칠, 팔
+        }
+        if (c >= '0' && c <= '9') return Final.None;            // 이, 사, 오, 구
+
+        char l = char.ToLowerInvariant(c);
+        if (l == 'l') return Final.Rieul;                       // Paul → 폴
+        if (l == 'm' || l == 'n') return Final.Consonant;       // Tom → 톰, Ian → 이안
+        if (l == 'g' && before.Length >= 2 && char.ToLowerInvariant(before[before.Length - 2]) == 'n')
+            return Final.Consonant;                             // Kang → 강
+        return Final.None;
     }
 
     /// <summary>
